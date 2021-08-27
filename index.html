@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Etch-A-Sketch</title>
+    <script src="etch-a-sketch.js" defer></script>
+    <style>
+        body{
+            background-color: rgba(248, 243, 236, 0.74);
+        }
+        h1{
+            font-size: 50px;
+            color: rgba(0, 0, 0, 0.603);
+            text-align: center;
+        }
+        .container{
+            display: grid;
+            height: 650px;
+            width: 650px;
+            margin: 0 auto;
+            box-shadow: 3px 3px 5px -1px rgb(196, 195, 195);
+
+        }
+
+        .box{
+            border: 1px solid rgb(151, 151, 151);
+        }
+        /*.box:hover{
+            background-color: grey;
+        }*/
+        .active{
+            background-color: grey;
+        }
+    </style>
+</head>
+<body>
+    <h1>Etch-A-Sketch</h1>
+    <div class=container></div>
+</body>
+</html>
