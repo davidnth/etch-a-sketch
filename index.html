@@ -14,8 +14,27 @@
             color: rgba(0, 0, 0, 0.603);
             text-align: center;
         }
+
+        button{
+            width: 100px;
+            height: 40px;
+            margin: 0 auto;
+            background-color: rgb(219, 215, 215);
+            box-shadow: 0px 0px 3px 1px rgb(219, 215, 215);
+            border: none;
+            border-radius: 3px;
+            color: rgba(0, 0, 0, 0.603)
+        }
+
+        button:hover{
+            background-color: white;
+            color: black;
+        }
+            
         .container{
-            display: grid;
+            position: relative;
+            left: -20px;
+            display: inline-grid;
             height: 600px;
             width: 600px;
             margin: 0 auto;
@@ -32,11 +51,50 @@
         .active{
             background-color: grey;
         }
+
+        .buttons{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            width: 200px;
+            top: 20px;
+            left: 100px;
+            height: 250px;
+            /*grid-template-rows: 1fr 1fr 1fr 1fr;*/
+            margin-left: 20% auto;
+            /*border: 1px solid black;*/
+        }
+
+        #clear{
+            /*margin: 0px;*/
+            //margin: 0 auto;
+        }
+
+        #main{
+            position: relative;
+            width: 1200px;
+            right: 80px;
+            top: 30px;
+            display: flex;
+            /*justify-content: space-evenly;*/
+            grid-template-columns: 1fr 100fr;
+            margin: 0 auto;
+            
+            
+        }
     </style>
 </head>
 <body>
     <h1>Etch-A-Sketch</h1>
-    <button id="clear">Clear</button>
-    <div class=container></div>
+    <div id="main">
+        <div class="buttons">
+            <button id="clear">Clear</button>
+            <button id="color"> Color </button>
+            <button id="rainbow"> Rainbow </button>
+            <button id="darken"> Darken </button>
+        </div>
+        <div class=container></div>
+    </div>
 </body>
 </html>
