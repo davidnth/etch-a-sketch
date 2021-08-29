@@ -1,35 +1,37 @@
 const container = document.querySelector(".container");
-//16 rows and 16 columns
-container.style.gridTemplateColumns="repeat(16, 1fr)"
-container.style.gridTemplateRows="repeat(16, 1fr)"
+var divs = document.querySelectorAll(".box");
+var size = 16;
 
-//create 16x16 squares
+function resetgrid() {
+    divs.forEach(div => div.classList.remove("active"));
+    do{
+    size = prompt("Please enter a grid size between 1-100");
+    }
+    while (size < 1 || size > 100);
+    squares(size);
+}
+
+//Clear and resize the grid;
+const clear = document.querySelector("#clear");
+clear.addEventListener("click", resetgrid);
+
+//create a grid of size x size divs and give each div a
+        //mouseenter event listener
 function squares(size){
     for(i = 0; i < size; i++){
         for(j = 0; j < size; j++){
         const box = document.createElement("div");
-        //box.textContent = 'a';
         box.className ="box";
         container.appendChild(box);
         }
      }
-}
-
-//defines rows and columns of the container
-function grid(size){
     container.style.gridTemplateColumns=`repeat(${size}, 1fr)`;
     container.style.gridTemplateRows=`repeat(${size}, 1fr)`;
-}
-
-function print(){
-    const divs = document.querySelectorAll(".box")
-    divs.forEach(div => div.addEventListener('mouseenter', () =>{
+    divs = document.querySelectorAll(".box");
+    divs.forEach(div => div.addEventListener("mouseenter", () => {
         div.classList.add("active");
-    }));
+    })); 
+    
 }
 
-//addEventListener: mouseenter mouseleave
-
-squares(16);
-grid(16);
-print();
+squares(size);
