@@ -1,6 +1,9 @@
 const container = document.querySelector(".container");
 var divs = document.querySelectorAll(".box");
 var size = 16;
+var penColor = "rgb(107, 107, 107)";
+
+//"rgba(255, 0, 0)";
 
 
 //Returns a random color 
@@ -27,11 +30,30 @@ function squares(size){
     container.style.gridTemplateColumns=`repeat(${size}, 1fr)`;
     container.style.gridTemplateRows=`repeat(${size}, 1fr)`;
     divs = document.querySelectorAll(".box");
-    divs.forEach(div => div.addEventListener("mouseenter", () => {
-        div.style.backgroundColor = "black";
-    }));  
+    color();
+
+    /*divs.forEach(div => div.addEventListener("mouseenter", () => {
+        div.style.backgroundColor = "black";*/
+    //}));  
 }
 
+let colortoggle;
+function color(){
+    colorbutton.addEventListener("input", () => {
+        penColor = colorbutton.value;
+    })
+    colortoggle = true;
+    divs.forEach(div => div.addEventListener("mouseenter", function pen(){
+        if (colortoggle == true){
+        div.style.backgroundColor = penColor;
+        //console.log("on");
+        }
+        else{
+            div.removeEventListener("mouseenter", pen);
+            //console.log('off');
+        }
+    }));
+}
 //Clear and resize the grid
 function resetGrid() {
     divs.forEach(div => div.style.backgroundColor="transparent");
@@ -48,6 +70,9 @@ const rainbowbutton = document.querySelector("#rainbow")
 rainbowbutton.addEventListener("click", rainbow);
 const darkenbutton = document.querySelector("#darken");
 darkenbutton.addEventListener("click", darken);
+const colorbutton = document.querySelector("#color");
+colorbutton.addEventListener("click", color);
+
 
 
 
@@ -55,25 +80,33 @@ squares(size);
 
 
 
-rainbow = false;
+let rainbowtoggle = true;
+
 function rainbow(){
-    rainbow = true;
-    if (rainbow = true){
+    rainbowtoggle = true;
+    //if (rainbow = true){
         divs.forEach(div => div.addEventListener("mouseenter", function rainbowPen(){
+            if (rainbowtoggle == true){
         div.style.backgroundColor = randomRGB();
+        }
+             else{
+                divs.forEach(div => div.removeEventListener("mouseenter", rainbowPen));
+            }
     }))}
-    else{
-            div.removeEventListener("mouseenter", rainbowPen);
-    }
-    
-    //div.removeEventListener("mouseenter", rainbowbowPen);
-}
+    /*else {
+        divs.forEach(div => div.removeEventListener("mouseenter", rainbowPen))
+    }*/
+    /*else{
+            div.removeEventListener("mouseenter", rainbowPen);*/
+//}
+
 
 
 
 
 function darken(){
-    rainbow = false;
+    rainbowtoggle = false;
+    colortoggle = false;
     divs.forEach(div => {
         var color = div.style.backgroundColor;
         var nums = color.slice(4, color.length - 1);
@@ -84,21 +117,18 @@ function darken(){
         let i = 0;
         
         
-        div.addEventListener("mouseenter", () =>{
-            
-                i++;
-                if (i < 11){
-                    r = R - i*(R * .1);
-                    g = G - i*(G * .1);
-                    b = B - i*(B * .1);
+        div.addEventListener("mouseenter", function darken(){
+            i++;
+            console.log(i) + console.log(div.style.backgroundColor);
+            if (i < 11){
+                r = R - i*(R * .1);
+                g = G - i*(G * .1);
+                b = B - i*(B * .1);
+                div.style.backgroundColor = 'rgb(' + r +', ' + g + ', ' + b + ')';
                 }
                 else{
-                    r = 0;
-                    g = 0;
-                    b = 0;
+                    div.removeEventListener("mouseenter", darken);
                 }
-
-            div.style.backgroundColor = 'rgb(' + r +', ' + g + ', ' + b + ')';
             console.log(div.style.backgroundColor);
             });
     });
