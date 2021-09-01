@@ -3,9 +3,6 @@ var divs = document.querySelectorAll(".box");
 var size = 16;
 var penColor = "rgb(107, 107, 107)";
 
-//"rgba(255, 0, 0)";
-
-
 //Returns a random color 
 function randomRGB() {
     let number = Math.round(Math.random() * 255);
@@ -17,8 +14,7 @@ function randomRGB() {
 }
 
 /*Create a grid of size x size divs and give each div a
-        mouseenter event listener and sets background color
-        to black*/
+        mouseenter event listener*/
 function squares(size){
     for(i = 0; i < size; i++){
         for(j = 0; j < size; j++){
@@ -31,29 +27,29 @@ function squares(size){
     container.style.gridTemplateRows=`repeat(${size}, 1fr)`;
     divs = document.querySelectorAll(".box");
     color();
-
-    /*divs.forEach(div => div.addEventListener("mouseenter", () => {
-        div.style.backgroundColor = "black";*/
-    //}));  
 }
 
-let colortoggle;
+//Change backgroundColor of div to a specified color
+let colorToggle;
 function color(){
+    rainbowToggle = false;
+    darkenToggle = false;
+    eraseToggle = false;
+    colorToggle = true;
     colorbutton.addEventListener("input", () => {
         penColor = colorbutton.value;
     })
-    colortoggle = true;
+    colorToggle = true;
     divs.forEach(div => div.addEventListener("mouseenter", function pen(){
-        if (colortoggle == true){
+        if (colorToggle == true){
         div.style.backgroundColor = penColor;
-        //console.log("on");
         }
         else{
             div.removeEventListener("mouseenter", pen);
-            //console.log('off');
         }
     }));
 }
+
 //Clear and resize the grid
 function resetGrid() {
     divs.forEach(div => div.style.backgroundColor="transparent");
@@ -72,41 +68,32 @@ const darkenbutton = document.querySelector("#darken");
 darkenbutton.addEventListener("click", darken);
 const colorbutton = document.querySelector("#color");
 colorbutton.addEventListener("click", color);
+const erasebutton = document.querySelector("#erase");
+erasebutton.addEventListener("click", erase);
 
-
-
-
-squares(size);
-
-
-
-let rainbowtoggle = true;
-
+//Change backgroundColor of div to a random color
+let rainbowToggle;
 function rainbow(){
-    rainbowtoggle = true;
-    //if (rainbow = true){
+    colorToggle = false;
+    darkenToggle = false;
+    eraseToggle = false;
+    rainbowToggle = true;
         divs.forEach(div => div.addEventListener("mouseenter", function rainbowPen(){
-            if (rainbowtoggle == true){
+            if (rainbowToggle == true){
         div.style.backgroundColor = randomRGB();
         }
              else{
                 divs.forEach(div => div.removeEventListener("mouseenter", rainbowPen));
             }
-    }))}
-    /*else {
-        divs.forEach(div => div.removeEventListener("mouseenter", rainbowPen))
-    }*/
-    /*else{
-            div.removeEventListener("mouseenter", rainbowPen);*/
-//}
+        }));
+}
 
-
-
-
-
+let darkenToggle;
 function darken(){
-    rainbowtoggle = false;
-    colortoggle = false;
+    rainbowToggle = false;
+    colorToggle = false;
+    eraseToggle = false;
+    darkenToggle = true;
     divs.forEach(div => {
         var color = div.style.backgroundColor;
         var nums = color.slice(4, color.length - 1);
@@ -116,20 +103,43 @@ function darken(){
         const B = Number(initValues[2]);
         let i = 0;
         
-        
+
         div.addEventListener("mouseenter", function darken(){
-            i++;
-            console.log(i) + console.log(div.style.backgroundColor);
-            if (i < 11){
-                r = R - i*(R * .1);
-                g = G - i*(G * .1);
-                b = B - i*(B * .1);
-                div.style.backgroundColor = 'rgb(' + r +', ' + g + ', ' + b + ')';
+            if (darkenToggle == true){
+                i++;
+                if (i < 11){
+                    r = R - i*(R * .1);
+                    g = G - i*(G * .1);
+                    b = B - i*(B * .1);
+                    div.style.backgroundColor = 'rgb(' + r +', ' + g + ', ' + b + ')';
                 }
                 else{
                     div.removeEventListener("mouseenter", darken);
                 }
-            console.log(div.style.backgroundColor);
+            }
+            else{
+                div.removeEventListener("mouseenter", darken);
+                }
             });
     });
 }
+
+let eraseToggle;
+function erase(){
+    eraseToggle = true;
+    darkenToggle = false;
+    colorToggle = false;
+    rainbowToggle = false;
+    divs.forEach(div => {
+        div.addEventListener("mouseenter", function erase(){
+            if (eraseToggle == true){
+                div.style.backgroundColor="";
+            }
+            else{
+                div.removeEventListener("mouseenter", erase);
+            }
+        })});
+    }
+
+    
+squares(size);
