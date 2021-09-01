@@ -6,7 +6,7 @@ var size = 16;
 //Returns a random color 
 function randomRGB() {
     let number = Math.round(Math.random() * 255);
-    var rgb = 'rgba(' + 
+    var rgb = 'rgb(' + 
     `${Math.round(Math.random() * 255)}` +', ' + 
     `${Math.round(Math.random() * 255)}` + ', ' + 
     `${Math.round(Math.random() * 255)})`;
@@ -14,7 +14,8 @@ function randomRGB() {
 }
 
 /*Create a grid of size x size divs and give each div a
-        mouseenter event listener*/
+        mouseenter event listener and sets background color
+        to black*/
 function squares(size){
     for(i = 0; i < size; i++){
         for(j = 0; j < size; j++){
@@ -54,18 +55,51 @@ squares(size);
 
 
 
+rainbow = false;
 function rainbow(){
-    divs.forEach(div => div.addEventListener("mouseenter", () => {
-
-        var randomColor = randomRGB();
-        div.style.backgroundColor = randomColor;
-       
-        //console.log(div.style.backgroundColor);
-    }))
+    rainbow = true;
+    if (rainbow = true){
+        divs.forEach(div => div.addEventListener("mouseenter", function rainbowPen(){
+        div.style.backgroundColor = randomRGB();
+    }))}
+    else{
+            div.removeEventListener("mouseenter", rainbowPen);
+    }
+    
+    //div.removeEventListener("mouseenter", rainbowbowPen);
 }
 
+
+
+
 function darken(){
-    divs.forEach(div => div.addEventListener("mouseenter", () =>{
-        console.log(div.style.backgroundColor);
-    } ))
+    rainbow = false;
+    divs.forEach(div => {
+        var color = div.style.backgroundColor;
+        var nums = color.slice(4, color.length - 1);
+        var initValues = nums.split(", ");
+        const R = Number(initValues[0]);
+        const G = Number(initValues[1]);
+        const B = Number(initValues[2]);
+        let i = 0;
+        
+        
+        div.addEventListener("mouseenter", () =>{
+            
+                i++;
+                if (i < 11){
+                    r = R - i*(R * .1);
+                    g = G - i*(G * .1);
+                    b = B - i*(B * .1);
+                }
+                else{
+                    r = 0;
+                    g = 0;
+                    b = 0;
+                }
+
+            div.style.backgroundColor = 'rgb(' + r +', ' + g + ', ' + b + ')';
+            console.log(div.style.backgroundColor);
+            });
+    });
 }
